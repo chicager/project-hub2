@@ -1,0 +1,40 @@
+spring:
+  application:
+    name: Cache_Caffeine_Spring_Boot
+  datasource:
+    url: jdbc:h2:mem:testdb
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+
+logging:
+  level:
+#    Устанавливаем уровень DEBUG для пакета org.springframework.cache
+#    Если мы не укажем этот пакет, то не увидим логи как spring работает с кэшем
+#    Если бы мы указали root: DEBUG, вместо наших пакетов, то это означало бы, что мы хотим видеть все логи
+#    уровня DEBUG для всего приложения, включая:
+#      Все пакеты Spring Framework
+#      Все пакеты Hibernate
+#      Все пакеты нашего приложения
+#      Все пакеты зависимостей
+#    Это было бы избыточным и создало бы слишком много шума в логах. Мы бы увидели:
+#      Логи инициализации Spring
+#      Логи работы Hibernate
+#      Логи работы кеша
+#      Логи работы нашего приложения
+#      Логи работы других компонентов
+#    Это как если бы мы включили все камеры наблюдения в огромном торговом центре,
+#    вместо того чтобы следить только за важными для нас местами.
+#    Поэтому лучше указывать конкретные пакеты, которые нас интересуют.
+    org.springframework.cache: DEBUG
+#    Устанавливаем уровень DEBUG для пакета org.example.cache_caffeine_spring_boot
+    org.example.cache_caffeine_spring_boot: DEBUG
