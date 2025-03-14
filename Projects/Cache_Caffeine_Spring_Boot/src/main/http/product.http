@@ -1,0 +1,75 @@
+### Получить продукт по ID
+GET http://localhost:8080/api/products/1
+
+### Получить продукты с минимальной ценой
+GET http://localhost:8080/api/products/price/100
+
+### Создать новый продукт
+POST http://localhost:8080/api/products
+Content-Type: application/json
+
+{
+  "name": "Test Product",
+  "description": "Test Description",
+  "price": 100.0,
+  "stock": 10
+}
+
+### Обновить продукт
+PUT http://localhost:8080/api/products/1
+Content-Type: application/json
+
+{
+  "name": "Updated Product",
+  "description": "Updated Description",
+  "price": 200.0,
+  "stock": 20
+}
+
+### Удалить продукт
+DELETE http://localhost:8080/api/products/1
+
+### Поиск продукта по имени и цене
+GET http://localhost:8080/api/products/search?name=Test%20Product&price=100
+
+
+### Управление кешем ###
+
+### Получить список всех кешей
+GET http://localhost:8080/api/products/cache/names
+
+### Получить содержимое кеша products
+GET http://localhost:8080/api/products/cache/products/contents
+#Пример ответа:
+#{
+#    "1": {"id": 1, "name": "Test Product", "price": 100.0},
+#    "2": {"id": 2, "name": "Another Product", "price": 200.0}
+#}
+
+### Получить содержимое кеша productList
+GET http://localhost:8080/api/products/cache/productList/contents
+
+### Получить статистику кеша products
+GET http://localhost:8080/api/products/cache/products/stats
+#Пример ответа:
+#{
+#    "hitCount": 10,        // сколько раз данные были найдены в кеше
+#    "missCount": 3,        // сколько раз данных не было в кеше
+#    "evictionCount": 0,    // сколько элементов было удалено из-за переполнения
+#    "estimatedSize": 2     // текущий размер кеша
+#}
+
+### Получить статистику кеша productList
+GET http://localhost:8080/api/products/cache/productList/stats
+
+### Очистить все кеши
+POST http://localhost:8080/api/products/cache/clear-all
+
+### Очистить конкретный кеш (например, кеш products)
+POST http://localhost:8080/api/products/cache/products/clear
+
+### Очистить конкретный кеш (например, кеш productList)
+POST http://localhost:8080/api/products/cache/productList/clear
+
+### Удалить конкретное значение из кеша (например, продукт с id=1 из кеша products)
+DELETE http://localhost:8080/api/products/cache/products/1

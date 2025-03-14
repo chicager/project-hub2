@@ -11,6 +11,9 @@ spring:
     hibernate:
       ddl-auto: create-drop
     show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
   h2:
     console:
       enabled: true
@@ -18,6 +21,13 @@ spring:
 
 logging:
   level:
+#    Устанавливает базовый уровень логирования для всего приложения
+#    Более специфичные настройки для конкретных пакетов имеют приоритет над root (т. е. наши пакеты ниже)
+#    Таким образом, мы получаем:
+#      Общий уровень INFO для всего приложения
+#      Подробные логи (TRACE) для кеширования и нашего приложения
+#      Очень подробные логи (TRACE) для SQL-запросов
+    root: INFO
 #    Устанавливаем уровень DEBUG для пакета org.springframework.cache
 #    Если мы не укажем этот пакет, то не увидим логи как spring работает с кэшем
 #    Если бы мы указали root: DEBUG, вместо наших пакетов, то это означало бы, что мы хотим видеть все логи
@@ -35,6 +45,11 @@ logging:
 #    Это как если бы мы включили все камеры наблюдения в огромном торговом центре,
 #    вместо того чтобы следить только за важными для нас местами.
 #    Поэтому лучше указывать конкретные пакеты, которые нас интересуют.
-    org.springframework.cache: DEBUG
+    org.springframework.cache: TRACE
 #    Устанавливаем уровень DEBUG для пакета org.example.cache_caffeine_spring_boot
     org.example.cache_caffeine_spring_boot: DEBUG
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+#    Устанавливаем более подробный формат логов с временем и уровнем через паттерн
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
