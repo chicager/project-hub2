@@ -64,6 +64,7 @@ public class CacheConfig {
                     .expireAfterWrite(60, TimeUnit.MINUTES)
                     .initialCapacity(100)
                     .maximumSize(500)
+                    .recordStats()
         );
         return cacheManager;
     }

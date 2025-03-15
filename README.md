@@ -11,6 +11,9 @@
 - Стандартный кэш Spring **[ V ]**
 - Кэш Caffeine **[ V ]**
   - Кэш Caffeine в Spring Boot **[ V ]**
+
+НАПИСАТЬ ТЕСТЫ ДЛЯ ВСЕХ!!!!!
+
 - Кэш Reddis
   - Инструменты как с ним работать
 - SneakyThrows

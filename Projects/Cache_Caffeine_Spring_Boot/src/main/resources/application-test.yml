@@ -1,0 +1,29 @@
+#  В Spring Boot есть концепция профилей (profiles), которые позволяют иметь разные конфигурации для разных окружений. В нашем случае:
+#    application.yml - основной конфигурационный файл для всех профилей
+#    application-test.yml - конфигурация, которая применяется только для тестового профиля
+#  Когда мы используем аннотацию @ActiveProfiles("test") в наших тестах:
+#    @SpringBootTest
+#    @ActiveProfiles("test")
+#    class ProductIntegrationTest {
+#      // ...
+#    }
+#  Spring Boot:
+#    Сначала загружает настройки из application.yml
+#    Затем загружает и накладывает настройки из application-test.yml
+#    Если настройки пересекаются, значения из application-test.yml перезаписывают значения из application.yml
+#  Теперь:
+#    При обычном запуске приложения используется application.yml
+#    При запуске тестов с профилем "test" используется комбинация application.yml + application-test.yml
+#  Это позволяет:
+#    Иметь разные настройки для разработки и тестирования
+#    Не дублировать общие настройки
+#    Переопределять только те параметры, которые должны отличаться в тестах
+
+spring:
+  datasource:
+#    DB_CLOSE_DELAY=-1 - держит базу открытой для всех тестов
+    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1
+
+logging:
+  level:
+    org.springframework.cache: DEBUG
