@@ -12,7 +12,10 @@
 - Кэш Caffeine **[ V ]**
   - Кэш Caffeine в Spring Boot **[ V ]**
 
-НАПИСАТЬ ТЕСТЫ ДЛЯ ВСЕХ!!!!!
+НАПИСАТЬ ТЕСТЫ ДЛЯ: 
+    Listeners_Spring_Boot
+    Own_Library_And_Srping_Boot_Started
+    Work_with_properties_Spring_Boot
 
 - Кэш Reddis
   - Инструменты как с ним работать

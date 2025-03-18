@@ -1,5 +1,6 @@
 package org.example.interceptors_spring_boot.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.example.interceptors_spring_boot.model.Task;
 import org.example.interceptors_spring_boot.repository.TaskRepository;
@@ -21,8 +22,8 @@ public class TaskController {
     }
 
     @PostMapping
-    public Task createTask(@RequestBody Task task) {
-        return taskRepository.save(task);
+    public ResponseEntity<Task> createTask(@Valid @RequestBody Task task) {
+        return ResponseEntity.ok(taskRepository.save(task));
     }
 
     @GetMapping("/{id}")
