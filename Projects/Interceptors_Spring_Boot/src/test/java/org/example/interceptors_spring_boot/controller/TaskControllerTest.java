@@ -137,6 +137,42 @@ class TaskControllerTest {
     private static final String VALID_API_KEY = "your-secret-key";
     private static final String INVALID_API_KEY = "invalid-key";
 
+    /*
+    В обычном production-коде если метод объявляет throws Exception, то вызывающий код должен либо:
+      Обработать исключение через try-catch
+      Или пробросить его дальше через throws
+    Но в случае с тестовыми методами ситуация особенная:
+      Тестовые методы являются конечными точками выполнения
+      Их выполняет фреймворк JUnit
+      JUnit автоматически обрабатывает все исключения, которые возникают в тестовых методах
+    То есть, когда мы пишем:
+      @Test
+      void testOrderEvents_ShouldReturnSuccessMessage() throws Exception {
+        // test code
+      }
+
+    JUnit выступает в роли "обработчика" этих исключений. Внутри JUnit это выглядит примерно так:
+      // Примерная внутренняя реализация JUnit
+      try {
+          runTestMethod();
+      } catch (Exception e) {
+          markTestAsFailed(e);
+          reportError(e);
+      }
+    Поэтому:
+      В обычном коде: throws Exception требует обработки выше
+      В тестах: throws Exception обрабатывается фреймворком JUnit
+    Можно переписать наш тест и без throws Exception, а с помощью try-catch, но такой подход:
+      Делает код более громоздким
+      Не дает никаких преимуществ, так как JUnit все равно обработает исключение
+      Скрывает реальный стектрейс ошибки, что усложняет отладку
+    Поэтому в тестах принято:
+      ✅ Использовать throws Exception
+      ❌ Не оборачивать код в try-catch
+      ✅ Позволять JUnit обрабатывать исключения
+    Это считается хорошей практикой в тестировании, хотя и может показаться противоречащим обычным
+    правилам обработки исключений в Java.
+    */
     @Test
     void getAllTasks_ShouldReturnListOfTasks() throws Exception {
         // Given

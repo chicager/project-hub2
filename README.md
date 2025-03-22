@@ -12,8 +12,7 @@
 - Кэш Caffeine **[ V ]**
   - Кэш Caffeine в Spring Boot **[ V ]**
 
-НАПИСАТЬ ТЕСТЫ ДЛЯ: 
-    Listeners_Spring_Boot
+НАПИСАТЬ ТЕСТЫ ДЛЯ:
     Own_Library_And_Srping_Boot_Started
     Work_with_properties_Spring_Boot
 
