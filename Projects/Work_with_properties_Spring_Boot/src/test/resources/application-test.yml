@@ -1,0 +1,73 @@
+#  application-test.yml - это специальный конфигурационный файл Spring Boot для тестового профиля. Давайте разберем его назначение:
+#  Naming Convention (Соглашение об именовании):
+#    application.yml - основной конфигурационный файл
+#    application-{profile}.yml - конфигурация для конкретного профиля
+#    В нашем случае -test означает, что это конфигурация для тестового профиля
+#  Почему нужен отдельный файл для тестов:
+#    Изоляция тестовой среды от продакшена
+#    Возможность использовать тестовые значения (mock данные, тестовые URL и т.д.)
+#    Предотвращение случайного использования продакшен-конфигурации в тестах
+#  Как это работает:
+#    В тестовом классе AppPropertiesTest мы используем аннотацию @ActiveProfiles("test")
+#      @SpringBootTest
+#      @ActiveProfiles("test")
+#      class AppPropertiesTest {
+#    Это говорит Spring Boot использовать профиль "test"
+#    Spring Boot автоматически загружает application-test.yml вместо обычного application.yml
+#  Преимущества такого подхода:
+#    Можно иметь разные конфигурации для разных сред (test, dev, prod)
+#    Тесты не зависят от реальной конфигурации приложения
+#    Можно тестировать различные сценарии с разными значениями свойств
+#  В нашем случае application-test.yml содержит тестовые значения для всех конфигурационных свойств, которые мы хотим протестировать в AppPropertiesTest. Это позволяет нам проверить, что:
+#    Spring Boot правильно читает конфигурацию
+#    Правильно маппит YAML в Java объекты
+#    Все свойства имеют ожидаемые значения
+#    Без этого файла тесты бы не работали, так как не было бы тестовых данных для проверки.
+
+app:
+  name: "Test Application"
+  version: "1.0.0-TEST"
+  features:
+    enabled: true
+    maxItems: 10
+  security:
+    apiKey: "test-api-key"
+    allowedOrigins:
+      - "http://localhost:3000"
+      - "http://localhost:4200"
+  database:
+    url: "test-db-url"
+  notification:
+    email:
+      host: "smtp.gmail.com"
+      port: 587
+      from: "noreply@myapp.com"
+  endpoints:
+    endpoints:
+      users: "/api/users"
+      orders: "/api/orders"
+  featureFlags:
+    featureFlags:
+      newUI: true
+      beta: false
+  retryConfig:
+    delays:
+      - 1000
+      - 2000
+      - 3000
+  cache:
+    ttlSettings:
+      users: 300
+      products: 600
+  cors:
+    settings:
+      '[http://localhost:3000]':
+        allowedMethods:
+          - "GET"
+          - "POST"
+        maxAge: 3600
+  environmentSpecific:
+    environmentSpecific:
+      dev:
+        loggingLevel: "DEBUG"
+        mockServices: true

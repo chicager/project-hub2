@@ -14,7 +14,6 @@
 
 НАПИСАТЬ ТЕСТЫ ДЛЯ:
     Own_Library_And_Srping_Boot_Started
-    Work_with_properties_Spring_Boot
 
 - Кэш Reddis
   - Инструменты как с ним работать
