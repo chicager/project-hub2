@@ -1,0 +1,91 @@
+spring:
+  application:
+    name: Cache_Redis_Spring_Boot
+  data:
+#    Redis по умолчанию и так работает на localhost:6379
+    redis:
+      host: localhost
+      port: 6379
+      # Если у вас есть пароль, раскомментируйте следующую строку
+#      По умолчанию Redis позволяет подключаться без пароля, что опасно. Любой,
+#      кто имеет доступ к порту Redis может читать и изменять данные, поэтому нужно делать аутентификацию
+      # password: your_password
+
+  cache:
+    type: redis
+    redis:
+#      Это время жизни записей в кэше
+#      После указанного времени данные автоматически удаляются из кэша
+#      Если данные не были запрошены в течение часа, Redis их удалит
+      time-to-live: 3600000 # 1 час в миллисекундах
+#      Определяет, нужно ли кэшировать null значения
+#      false означает, что null значения НЕ будут сохраняться в кэше
+#      Это помогает экономить память
+#      Защищает от кэширования ошибочных состояний
+#      При следующем запросе метод будет вызван снова, если результат был null
+      cache-null-values: false
+#      Включает использование префиксов для ключей кэша
+#      Помогает организовать данные в Redis
+#      Позволяет избежать конфликтов имен ключей
+#      Упрощает поиск и управление кэшированными данными
+#      Особенно полезно, когда Redis используется несколькими приложениями (префикс настраивается разный для каждого приложения)
+      use-key-prefix: true
+#      Задает префикс, который будет добавляться ко всем ключам (префикс настраивается разный для каждого приложения)
+#      В данном случае все ключи будут начинаться с "cache:"
+#      Пример: если ключ был "products:1", то в Redis он будет сохранен как "cache:products:1"
+#      Пример с разными приложениями:
+#        Приложение продуктов сохраняет:
+#        key: "product:1" -> в Redis будет: "products-app:product:1"
+#        key: "categories:5" -> в Redis будет: "products-app:categories:5"
+#
+#        Приложение пользователей сохраняет:
+#        key: "user:1" -> в Redis будет: "users-app:user:1"
+#        key: "roles:admin" -> в Redis будет: "users-app:roles:admin"
+      key-prefix: "cache:"
+
+server:
+  port: 8080
+
+######################################################################################################
+#  В Spring Boot есть корневой (root) уровень логирования, который по умолчанию установлен на INFO
+
+#Иерархия логирования:
+#  root (INFO по умолчанию)
+#  ├── com.example.rediscachedemo (DEBUG)
+#  │   ├── .controller
+#  │   ├── .service
+#  │   └── .model
+#  ├── org.springframework (INFO)
+#  │   └── .cache (DEBUG)
+#  └── другие пакеты (наследуют INFO от root)
+
+#Что это значит:
+#  Все логи уровня INFO и выше будут показываться везде (от root)
+#  В пакете com.example.rediscachedemo и его подпакетах будут видны логи уровня DEBUG
+#  В пакете org.springframework.cache будут видны логи уровня DEBUG
+#  Все остальные пакеты останутся на уровне INFO
+
+#Пример вывода логов:
+#  // Это увидим (DEBUG в нашем пакете)
+#  DEBUG com.example.rediscachedemo.service.ProductService - Fetching product with id: 1
+#
+#  // Это увидим (DEBUG в spring cache)
+#  DEBUG org.springframework.cache.CacheManager - Cache hit for key: products:1
+#
+#  // Это увидим (INFO от стороннего пакета)
+#  INFO org.springframework.boot.StartupInfoLogger - Started Application
+#
+#  // Это НЕ увидим (DEBUG от стороннего пакета)
+#  DEBUG org.springframework.web.Client - Connection established
+
+#В продакшене обычно используют такую конфигурацию:
+#  # application-prod.yml
+#  logging:
+#    level:
+#      root: WARN                    # Минимум логов
+#      com.example.rediscachedemo: INFO  # Только важная информация
+######################################################################################################
+logging:
+  level:
+    com.example.rediscachedemo: DEBUG     # Только для нашего пакета
+    org.springframework.cache: DEBUG      # Только для кэш-компонентов Spring

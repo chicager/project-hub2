@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>3.4.4</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+
+<!--	Это как полное имя человека:-->
+<!--	  groupId - как фамилия-->
+<!--	  artifactId - как имя-->
+<!--	  version - как возраст или дата рождения-->
+<!--	  name и description - как дополнительная информация о человеке-->
+<!--	  Когда другие проекты захотят использовать ваш код как зависимость, они будут ссылаться на него используя комбинацию groupId:artifactId:version.-->
+
+<!--	Это как фамилия проекта. Обычно используется доменное имя компании наоборот. Например, если компания владеет доменом company.com, то groupId будет com.company. В нашем случае это просто пример, поэтому используется com.example.-->
+	<groupId>org.example</groupId>
+<!--	Это как имя проекта. Уникальное название вашего конкретного приложения внутри группы проектов. В нашем случае это демо-проект для работы с Redis кэшем.-->
+	<artifactId>cache_redis_spring_boot</artifactId>
+<!--	Это версия вашего проекта:-->
+<!--	0.0.1 - номер версии (major.minor.patch)-->
+<!--	SNAPSHOT - означает, что это версия в разработке, не финальная-->
+	<version>0.0.1-SNAPSHOT</version>
+<!--	Это человекочитаемое название проекта. Оно может использоваться в различных инструментах сборки и документации. В отличие от artifactId, это чисто описательное поле.-->
+	<name>Cache_Redis_Spring_Boot</name>
+	<description>Cache_Redis_Spring_Boot</description>
+	<url/>
+	<licenses>
+		<license/>
+	</licenses>
+	<developers>
+		<developer/>
+	</developers>
+	<scm>
+		<connection/>
+		<developerConnection/>
+		<tag/>
+		<url/>
+	</scm>
+	<properties>
+		<java.version>17</java.version>
+	</properties>
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+<!--	необходима для работы с Redis в Spring Boot приложении-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-redis</artifactId>
+		</dependency>
+<!--	это базовый модуль для кэширования-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-cache</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.projectlombok</groupId>
+				<artifactId>lombok-maven-plugin</artifactId>
+				<version>1.18.20.0</version>
+				<executions>
+					<execution>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>delombok</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.8.1</version>
+				<configuration>
+					<source>17</source>
+					<target>17</target>
+					<annotationProcessorPaths>
+						<path>
+							<groupId>org.projectlombok</groupId>
+							<artifactId>lombok</artifactId>
+							<version>1.18.30</version>
+						</path>
+					</annotationProcessorPaths>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<excludes>
+						<exclude>
+							<groupId>org.projectlombok</groupId>
+							<artifactId>lombok</artifactId>
+						</exclude>
+					</excludes>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>
