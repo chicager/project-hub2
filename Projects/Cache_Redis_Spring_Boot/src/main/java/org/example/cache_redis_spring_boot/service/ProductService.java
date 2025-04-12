@@ -23,9 +23,13 @@ public class ProductService {
     /*
     CacheName (или value в аннотации @Cacheable) нужен для логического разделения разных типов кэшированных данных.
     Это как разные "области" или "пространства имен" в кэше.
+
+    unless="#result == null" - когда метод getProduct возвращает null (например, после удаления продукта),
+    это значение не будет сохраняться в кэше (#result - это специальная переменная в Spring Expression Language (SpEL),
+    которая представляет собой результат выполнения метода.)
     */
     // 1. Простое кэширование с автоматическим обновлением
-    @Cacheable(value = "products", key = "#id")
+    @Cacheable(value = "products", key = "#id", unless="#result == null")
     public Product getProduct(Long id) {
         log.info("Fetching product with id: {}", id);
         simulateSlowOperation();
