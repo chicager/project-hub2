@@ -7,13 +7,16 @@ import java.lang.reflect.Method;
 
 /*
 KeyGenerator - это интерфейс Spring, который говорит "я умею создавать ключи для кэша"
-Реализуя этот интерфейс, мы создаем свой способ генерации ключей
+Реализуя этот интерфейс, мы создаем свой способ генерации ключей. Это особенно полезно, когда нам нужна
+более сложная логика формирования ключей кэша, чем просто использование параметров метода.
+Позволяет создавать единообразные ключи для разных методов.
 Spring будет использовать наш генератор, когда мы укажем его в аннотации @Cacheable(keyGenerator = "cacheKeyGenerator")
 */
 @Component
 public class CacheKeyGenerator implements KeyGenerator {
 
     /*
+    Генерирует ключи в формате: ClassName:methodName:param1:param2:...
     Пример работы логики нашего ключа:
       Допустим, у нас есть метод в ProductService:
         @Cacheable(keyGenerator = "cacheKeyGenerator")

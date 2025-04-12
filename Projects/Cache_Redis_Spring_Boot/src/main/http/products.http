@@ -1,0 +1,45 @@
+### Инициализация тестовых данных
+POST http://localhost:8080/api/products/init
+Content-Type: application/json
+
+### Получение продукта по ID
+GET http://localhost:8080/api/products/1
+
+### Получение продукта с условным кэшированием
+GET http://localhost:8080/api/products/conditional/1
+
+### Получение продукта с unless условием
+GET http://localhost:8080/api/products/unless/1
+
+### Обновление продукта
+PUT http://localhost:8080/api/products/1
+Content-Type: application/json
+
+{
+  "id": 1,
+  "name": "Updated Laptop",
+  "description": "Updated description",
+  "price": 1099.99,
+  "stock": 15
+}
+
+### Удаление продукта
+DELETE http://localhost:8080/api/products/1
+
+### Очистка кэша
+DELETE http://localhost:8080/api/products/cache
+
+### Получение списка продуктов с пагинацией
+GET http://localhost:8080/api/products/list?page=0&size=10
+
+### Получение горячего продукта
+GET http://localhost:8080/api/products/hot/1
+
+### Получение продукта с пользовательским ключом
+GET http://localhost:8080/api/products/custom-key/1?region=EU
+
+### Получение продукта с ключом продукта
+GET http://localhost:8080/api/products/product-key/1
+
+### Получение списка продуктов с ключом продукта
+GET http://localhost:8080/api/products/product-key/list?page=0&size=10

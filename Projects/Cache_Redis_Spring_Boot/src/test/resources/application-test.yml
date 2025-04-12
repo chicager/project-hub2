@@ -1,0 +1,12 @@
+# Spring Boot использует следующую иерархию конфигурации:
+#   Сначала применяется application.yml
+#   Затем application-{profile}.yml переопределяет только те настройки, которые в нем указаны
+#   Остальные настройки берутся из application.yml
+spring:
+  cache:
+    type: redis
+    redis:
+      time-to-live: 1000 # 1 секунда для тестов
+      cache-null-values: false
+      use-key-prefix: true
+      key-prefix: "test-cache:"
